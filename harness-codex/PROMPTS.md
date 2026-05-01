@@ -1,0 +1,117 @@
+# Common Prompts
+
+## 1. New Project Initialization
+
+```text
+Initialize this project using AGENTS.md and the Codex Harness files.
+
+Requirements:
+1. First check whether the project is on the C drive.
+2. If it is not on the C drive, read the root structure, README, package/dependency config, and draft harness/HCA_PROJECT_MAP.md.
+3. Do not change business code.
+4. Do not scan unrelated files or read large files.
+5. Write "unknown" for anything not confirmed. Do not guess.
+6. Report only:
+   - Files inspected
+   - Modules initially identified in HCA_PROJECT_MAP
+   - Missing information
+   - Current progress
+```
+
+## 2. Existing Project Adoption
+
+```text
+This is an existing project. Adopt Codex Harness for it according to AGENTS.md.
+
+Requirements:
+1. First check whether the project is on the C drive.
+2. Do not change business code.
+3. If harness/ already exists, read and merge it without overwriting.
+4. Read only README, dependency config, project structure, start/build/test config, and files I explicitly name for the current task.
+5. Do not scan the whole project without a clear reason.
+6. Fill HCA_PROJECT_MAP only from real files and information I provide.
+7. Fill TASK_FOCUS_PACK and TASK_STATUS for the current task.
+8. Mark unconfirmed history, decisions, and completed work as "unconfirmed".
+9. Record known mistakes, user prohibitions, and prior pitfalls in ERROR_LEDGER.
+10. Report only updated files, confirmed modules, missing information, next suggestions, and current progress.
+```
+
+## 3. Every New Task
+
+```text
+Follow AGENTS.md and harness/ rules for this task:
+
+Task:
+[describe the task]
+
+Requirements:
+1. Check ERROR_LEDGER first to avoid repeated mistakes.
+2. Update TASK_FOCUS_PACK with acceptance criteria, related files, out-of-scope areas, risks, and verification method.
+3. Read only files relevant to this task.
+4. Keep the change scope minimal and avoid unrelated refactors.
+5. Verify the change with real evidence.
+6. Update TASK_STATUS and TASK_RESULT.
+7. Do not report completion without verification evidence.
+```
+
+## 4. Lightweight Task
+
+```text
+Use a lightweight AGENTS.md flow for this task:
+
+Task:
+[describe the task]
+
+Requirements:
+1. Define the goal.
+2. Make the smallest necessary change.
+3. Verify it.
+4. Update TASK_STATUS.
+5. Report the result and progress briefly.
+```
+
+## 5. Continue An In-Progress Task
+
+```text
+Continue the current task according to AGENTS.md and harness/ rules.
+
+Requirements:
+1. Read HCA_PROJECT_MAP, TASK_FOCUS_PACK, TASK_STATUS, and ERROR_LEDGER first.
+2. Do not depend on chat history. Prefer harness files for recovery.
+3. If TASK_STATUS conflicts with actual files, stop and point out the mismatch.
+4. Before continuing, define the goal, completed work, remaining work, next step, and verification method.
+5. Continue with the smallest necessary change.
+6. Update TASK_STATUS and TASK_RESULT when done.
+```
+
+## 6. Update Error Ledger After A Mistake
+
+```text
+A mistake occurred. Update ERROR_LEDGER according to AGENTS.md.
+
+Mistake:
+[describe the mistake]
+
+Requirements:
+1. Stop the current execution path first.
+2. Record the symptom, location, root cause, fix, recurrence-prevention rule, what to check next time, and verification method.
+3. Update TASK_FOCUS_PACK with the new prevention constraint.
+4. Propose the smallest repair plan.
+5. Do not continue before ERROR_LEDGER is updated.
+```
+
+## 7. Review A Task
+
+```text
+Review this task according to AGENTS.md and harness/ rules.
+
+Review scope:
+[describe task or change scope]
+
+Requirements:
+1. Read TASK_FOCUS_PACK, TASK_RESULT, and ERROR_LEDGER.
+2. Inspect the actual diff and verification evidence.
+3. Do not rely on verbal claims from the execution thread.
+4. Check acceptance criteria, unrelated changes, verification evidence, new risks, and repeated ERROR_LEDGER mistakes.
+5. Output pass/fail, evidence, required rework, and current progress.
+```
