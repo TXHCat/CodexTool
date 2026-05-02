@@ -9,6 +9,7 @@ Record past mistakes, wrong assumptions, rework, and missed verification. Check 
 - Add an entry after mistakes, rework, wrong assumptions, repeated trial and error, incorrect file edits, missed verification, or lost context.
 - Before a new task, check for same or similar mistakes.
 - If a similar mistake happens again, stop the current path, update this file, then choose a new plan.
+- After refactors, major rewrites, module replacements, or other changes that make existing entries obsolete, remove or revise invalid records so the ledger stays accurate.
 - Do not record keys, accounts, private paths, chat history, or other private information.
 
 ## Entry Template
