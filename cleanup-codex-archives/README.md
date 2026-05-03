@@ -11,34 +11,41 @@ destructive work.
 One-click cleanup on Windows:
 
 ```powershell
-.\clean_codex_archives.bat
+.\clean_codex_archives_windows.bat
 ```
 
-The batch script previews the cleanup first, then asks for `Y/N` confirmation
-before running the irreversible `--apply` step.
+One-click cleanup on Mac:
+
+```sh
+./clean_codex_archives_mac.sh
+```
+
+Both platform scripts preview the cleanup first, then ask for `Y/N`
+confirmation before running the irreversible `--apply` step. They call the
+`cleanup_codex_archives.py` file from this same directory.
 
 Preview the cleanup for the default Codex home:
 
-```powershell
-python .\cleanup_codex_archives.py
+```sh
+python3 cleanup_codex_archives.py
 ```
 
 Preview a specific Codex home:
 
-```powershell
-python .\cleanup_codex_archives.py --codex-home C:\Users\jakec\.codex
+```sh
+python3 cleanup_codex_archives.py --codex-home /path/to/.codex
 ```
 
 Output a JSON report:
 
-```powershell
-python .\cleanup_codex_archives.py --json
+```sh
+python3 cleanup_codex_archives.py --json
 ```
 
 Permanently delete archived chat data:
 
-```powershell
-python .\cleanup_codex_archives.py --codex-home C:\Users\jakec\.codex --apply
+```sh
+python3 cleanup_codex_archives.py --codex-home /path/to/.codex --apply
 ```
 
 ## Safety Model
@@ -66,7 +73,7 @@ filenames.
 The command fails before applying changes when:
 
 - `state_5.sqlite` or `logs_2.sqlite` is missing.
-- An archived `rollout_path` is outside `<codex-home>\archived_sessions`.
+- An archived `rollout_path` is outside `<codex-home>/archived_sessions`.
 - The archived JSONL file is missing, empty, invalid JSON, or does not start with
   `session_meta`.
 - The JSONL `session_meta.payload.id` does not exactly match the SQLite thread ID.
@@ -75,6 +82,6 @@ The command fails before applying changes when:
 
 Run the unit tests:
 
-```powershell
-python -m unittest tests.test_cleanup_codex_archives -v
+```sh
+python3 -m unittest tests.test_cleanup_codex_archives -v
 ```

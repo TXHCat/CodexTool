@@ -248,7 +248,7 @@ class CleanupCodexArchivesTests(unittest.TestCase):
 
 class BatchScriptTests(unittest.TestCase):
     def test_batch_script_runs_preview_before_confirmed_apply(self) -> None:
-        script_path = Path(__file__).resolve().parents[1] / "clean_codex_archives.bat"
+        script_path = Path(__file__).resolve().parents[1] / "clean_codex_archives_windows.bat"
 
         script = script_path.read_text(encoding="utf-8")
 
@@ -256,7 +256,22 @@ class BatchScriptTests(unittest.TestCase):
         self.assertIn("--codex-home", script)
         self.assertIn("\"%CODEX_HOME%\"", script)
         self.assertIn("choice /c YN", script)
+        self.assertIn("\"%SCRIPT_DIR%cleanup_codex_archives.py\"", script)
         self.assertLess(script.index("cleanup_codex_archives.py\" --codex-home"), script.index("--apply"))
+
+
+class MacShellScriptTests(unittest.TestCase):
+    def test_shell_script_runs_preview_before_confirmed_apply(self) -> None:
+        script_path = Path(__file__).resolve().parents[1] / "clean_codex_archives_mac.sh"
+
+        script = script_path.read_text(encoding="utf-8")
+
+        self.assertIn("cleanup_codex_archives.py", script)
+        self.assertIn("--codex-home", script)
+        self.assertIn('"$CODEX_HOME"', script)
+        self.assertIn("read -r answer", script)
+        self.assertIn('CLEANUP_SCRIPT="$SCRIPT_DIR/cleanup_codex_archives.py"', script)
+        self.assertLess(script.index("--codex-home \"$CODEX_HOME\""), script.index("--apply"))
 
 
 if __name__ == "__main__":
