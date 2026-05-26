@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI 原型图生成"
+  short_description: "用 LaTeX/TikZ 生成 UI 原型 PDF"
+  default_prompt: "Use $ui-prototype-generation to create a LaTeX/TikZ UI prototype and compile it to PDF."

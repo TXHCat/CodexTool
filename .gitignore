@@ -17,6 +17,13 @@ __pycache__/
 *.temp
 .codex-local/
 
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+
 # Dependencies and build output
 node_modules/
 dist/
