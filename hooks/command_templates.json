@@ -1,0 +1,118 @@
+{
+  "#assess": {
+    "description": "只读分析，不实现。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #assess 协作模板。",
+      "本轮只做只读分析，不实现、不编辑文件、不执行会改变项目状态的操作。",
+      "先检查相关代码、文档、配置和当前状态，再说明根因、影响范围、2-3 个可选方案、推荐方案、风险和验证方式。",
+      "如果目标、范围或验收标准不清楚，先指出缺口并询问，不要自行扩大范围。"
+    ]
+  },
+  "#plan-work": {
+    "description": "整理可执行计划。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #plan-work 协作模板。",
+      "本轮目标是把需求整理成可执行计划，不直接实现。",
+      "计划必须明确目标、范围、非目标、修改边界、数据/接口变化、验证方式、风险和验收标准。",
+      "如果存在高影响偏好或取舍，先让用户选择；不要把未确认偏好写成事实。"
+    ]
+  },
+  "#execute-plan": {
+    "description": "按已确认计划执行，要求 checklist 归零。",
+    "stop_check_enabled": true,
+    "requires_checklist": true,
+    "required_sections": ["已完成", "验证证据", "未完成", "风险", "下一步"],
+    "context": [
+      "用户使用了 #execute-plan 协作模板。",
+      "按已确认的计划执行，不要只完成一部分就结束。",
+      "开始前先把计划拆成 checklist；每完成一项就更新状态。",
+      "每个 checklist 项都要有对应改动、验证证据，或明确说明无法完成的 blocker。",
+      "最终回复前必须逐项核对 checklist。",
+      "最终回复必须包含：已完成、验证证据、未完成、风险、下一步。",
+      "未完成项非空时，不允许声称完成。"
+    ]
+  },
+  "#resume-plan": {
+    "description": "恢复上次计划，只继续未完成项。",
+    "stop_check_enabled": true,
+    "requires_checklist": true,
+    "required_sections": ["已完成", "验证证据", "未完成", "风险", "下一步"],
+    "context": [
+      "用户使用了 #resume-plan 协作模板。",
+      "先恢复原计划 checklist，标记已完成、未完成、无法确认的项。",
+      "只继续未完成项，不要重复已完成工作。",
+      "如果上下文不足，先从文件、日志、测试和状态记录恢复事实；不能确认时明确说明。",
+      "最终回复必须包含：已完成、验证证据、未完成、风险、下一步。",
+      "未完成项非空时，不允许声称完成。"
+    ]
+  },
+  "#refactor-boundary": {
+    "description": "重构前锁迁移、删除、保留边界。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #refactor-boundary 协作模板。",
+      "本轮先锁定重构边界，不直接做大规模实现。",
+      "必须列出：必须保留/迁移、明确删除/不迁移、只留 TODO、本轮不处理。",
+      "评估旧实现和当前结构后，再给出最小稳定迁移顺序、验证方式和回滚风险。"
+    ]
+  },
+  "#bugfix": {
+    "description": "按复现、根因、最小修复、验证修 bug。",
+    "stop_check_enabled": true,
+    "requires_checklist": false,
+    "required_sections": ["已完成", "验证证据", "未完成", "风险", "下一步"],
+    "context": [
+      "用户使用了 #bugfix 协作模板。",
+      "先复现或找到证据，再定位根因；不要先猜修复。",
+      "优先修 root cause，不只补症状。",
+      "修改后必须验证原问题消失，并检查同类问题。",
+      "最终回复必须包含：已完成、验证证据、未完成、风险、下一步。"
+    ]
+  },
+  "#ui-fix": {
+    "description": "UI/视觉修改，强制尺寸、状态、截图验收。",
+    "stop_check_enabled": true,
+    "requires_checklist": false,
+    "required_sections": ["已完成", "验证证据", "未完成", "风险", "下一步"],
+    "context": [
+      "用户使用了 #ui-fix 协作模板。",
+      "先定位相关 UI 文件、样式来源和状态入口。",
+      "确认尺寸、状态、长文本、参考截图/页面和不允许的问题；缺少关键验收条件时先补齐。",
+      "不要改无关业务逻辑。",
+      "修改后用截图、浏览器检查或等价视觉验证说明证据。",
+      "最终回复必须包含：已完成、验证证据、未完成、风险、下一步。"
+    ]
+  },
+  "#design-options": {
+    "description": "设计类任务，先给方案矩阵，不直接落文档。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #design-options 协作模板。",
+      "本轮先给方案矩阵，不直接实现或落文档，除非用户明确要求。",
+      "给出 3 个方向，每个方向说明核心结构、优点、风险、实现成本和适用条件。",
+      "给出推荐方案和需要用户拍板的问题。"
+    ]
+  },
+  "#closeout": {
+    "description": "任务收尾，输出证据、风险、未完成项。",
+    "stop_check_enabled": true,
+    "requires_checklist": false,
+    "required_sections": ["已完成", "验证证据", "未完成", "风险", "下一步"],
+    "context": [
+      "用户使用了 #closeout 协作模板。",
+      "本轮只做收尾核对和报告，不主动扩大实现范围。",
+      "检查已完成工作、验证证据、未完成项、风险和下一步最小任务。",
+      "最终回复必须包含：已完成、验证证据、未完成、风险、下一步。"
+    ]
+  }
+}

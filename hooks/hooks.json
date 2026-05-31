@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"I:\\TestProject\\CodexTool\\hooks\\codex_command_router.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"I:\\TestProject\\CodexTool\\hooks\\codex_stop_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
