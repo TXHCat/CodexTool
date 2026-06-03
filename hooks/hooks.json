@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"I:\\TestProject\\CodexTool\\hooks\\codex_command_router.py\"",
+            "command": "/usr/bin/python3 \"/Users/txhcat/CodexTool/hooks/codex_command_router.py\"",
             "timeout": 10
           }
         ]
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"I:\\TestProject\\CodexTool\\hooks\\codex_stop_guard.py\"",
+            "command": "/usr/bin/python3 \"/Users/txhcat/CodexTool/hooks/codex_stop_guard.py\"",
             "timeout": 10
           }
         ]

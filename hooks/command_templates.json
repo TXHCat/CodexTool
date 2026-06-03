@@ -114,5 +114,114 @@
       "检查已完成工作、验证证据、未完成项、风险和下一步最小任务。",
       "最终回复必须包含：已完成、验证证据、未完成、风险、下一步。"
     ]
+  },
+  "#harness-init-project": {
+    "description": "Codex Harness 新项目初始化。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #harness-init-project Codex Harness 模板，对应 PROMPTS.md 的 New Project Initialization。",
+      "目标：Initialize this project using AGENTS.md and the Codex Harness files.",
+      "先检查项目是否在 C drive；如果不在 C drive，只读取根结构、README、package/dependency config，并起草 harness/HCA_PROJECT_MAP.md。",
+      "不要改 business code；不要扫描无关文件或读取大文件。",
+      "未确认信息写 unknown，不要猜。",
+      "报告仅包含：Files inspected、Modules initially identified in HCA_PROJECT_MAP、Missing information、Current progress。"
+    ]
+  },
+  "#harness-adopt-project": {
+    "description": "Codex Harness 既有项目接入。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #harness-adopt-project Codex Harness 模板，对应 PROMPTS.md 的 Existing Project Adoption。",
+      "目标：This is an existing project. Adopt Codex Harness for it according to AGENTS.md.",
+      "先检查项目是否在 C drive；不要改 business code。",
+      "如果 harness/ 已存在，读取并合并，不要覆盖。",
+      "只读取 README、dependency config、project structure、start/build/test config，以及用户为当前任务明确指定的文件。",
+      "不要无明确理由扫描整个项目；HCA_PROJECT_MAP 只能填入真实文件和用户提供的信息。",
+      "为当前任务填 TASK_FOCUS_PACK 和 TASK_STATUS；未确认的 history、decisions、completed work 标为 unconfirmed。",
+      "把已知 mistakes、user prohibitions、prior pitfalls 记录到 ERROR_LEDGER。",
+      "报告仅包含 updated files、confirmed modules、missing information、next suggestions、current progress。"
+    ]
+  },
+  "#harness-task": {
+    "description": "Codex Harness 每个新任务标准流程。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #harness-task Codex Harness 模板，对应 PROMPTS.md 的 Every New Task。",
+      "Follow AGENTS.md and harness/ rules for this task.",
+      "先检查 ERROR_LEDGER，避免重复过去的错误。",
+      "更新 TASK_FOCUS_PACK，写清 acceptance criteria、related files、out-of-scope areas、risks、verification method。",
+      "只读取与当前任务相关的文件。",
+      "保持改动范围最小，避免无关 refactors。",
+      "必须用真实 evidence 验证改动。",
+      "完成后更新 TASK_STATUS 和 TASK_RESULT。",
+      "没有 verification evidence 时不要报告完成。"
+    ]
+  },
+  "#harness-light-task": {
+    "description": "Codex Harness 轻量任务流程。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #harness-light-task Codex Harness 模板，对应 PROMPTS.md 的 Lightweight Task。",
+      "Use a lightweight AGENTS.md flow for this task.",
+      "先定义 goal。",
+      "做最小必要改动。",
+      "验证改动。",
+      "更新 TASK_STATUS。",
+      "简短报告 result 和 progress。"
+    ]
+  },
+  "#harness-resume-task": {
+    "description": "Codex Harness 继续进行中任务。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #harness-resume-task Codex Harness 模板，对应 PROMPTS.md 的 Continue An In-Progress Task。",
+      "Continue the current task according to AGENTS.md and harness/ rules.",
+      "先读取 HCA_PROJECT_MAP、TASK_FOCUS_PACK、TASK_STATUS 和 ERROR_LEDGER。",
+      "不要依赖 chat history；优先用 harness files 恢复上下文。",
+      "如果 TASK_STATUS 与实际文件冲突，停止并指出 mismatch。",
+      "继续前先定义 goal、completed work、remaining work、next step、verification method。",
+      "用最小必要改动继续。",
+      "完成后更新 TASK_STATUS 和 TASK_RESULT。"
+    ]
+  },
+  "#harness-error-ledger": {
+    "description": "Codex Harness 发生错误后更新 ERROR_LEDGER。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #harness-error-ledger Codex Harness 模板，对应 PROMPTS.md 的 Update Error Ledger After A Mistake。",
+      "A mistake occurred. Update ERROR_LEDGER according to AGENTS.md.",
+      "先停止当前 execution path。",
+      "记录 symptom、location、root cause、fix、recurrence-prevention rule、what to check next time、verification method。",
+      "用新的 prevention constraint 更新 TASK_FOCUS_PACK。",
+      "提出最小 repair plan。",
+      "ERROR_LEDGER 更新前不要继续执行。"
+    ]
+  },
+  "#harness-review-task": {
+    "description": "Codex Harness 任务审查流程。",
+    "stop_check_enabled": false,
+    "requires_checklist": false,
+    "required_sections": [],
+    "context": [
+      "用户使用了 #harness-review-task Codex Harness 模板，对应 PROMPTS.md 的 Review A Task。",
+      "Review this task according to AGENTS.md and harness/ rules.",
+      "先读取 TASK_FOCUS_PACK、TASK_RESULT 和 ERROR_LEDGER。",
+      "检查实际 diff 和 verification evidence。",
+      "不要依赖执行线程的口头 claims。",
+      "检查 acceptance criteria、unrelated changes、verification evidence、new risks、repeated ERROR_LEDGER mistakes。",
+      "输出 pass/fail、evidence、required rework、current progress。"
+    ]
   }
 }

@@ -2,7 +2,11 @@
 
 ## 1. New Project Initialization
 
+Hook: `#harness-init-project`
+
 ```text
+#harness-init-project
+
 Initialize this project using AGENTS.md and the Codex Harness files.
 
 Requirements:
@@ -20,7 +24,11 @@ Requirements:
 
 ## 2. Existing Project Adoption
 
+Hook: `#harness-adopt-project`
+
 ```text
+#harness-adopt-project
+
 This is an existing project. Adopt Codex Harness for it according to AGENTS.md.
 
 Requirements:
@@ -38,7 +46,11 @@ Requirements:
 
 ## 3. Every New Task
 
+Hook: `#harness-task`
+
 ```text
+#harness-task
+
 Follow AGENTS.md and harness/ rules for this task:
 
 Task:
@@ -56,7 +68,11 @@ Requirements:
 
 ## 4. Lightweight Task
 
+Hook: `#harness-light-task`
+
 ```text
+#harness-light-task
+
 Use a lightweight AGENTS.md flow for this task:
 
 Task:
@@ -72,7 +88,11 @@ Requirements:
 
 ## 5. Continue An In-Progress Task
 
+Hook: `#harness-resume-task`
+
 ```text
+#harness-resume-task
+
 Continue the current task according to AGENTS.md and harness/ rules.
 
 Requirements:
@@ -86,7 +106,11 @@ Requirements:
 
 ## 6. Update Error Ledger After A Mistake
 
+Hook: `#harness-error-ledger`
+
 ```text
+#harness-error-ledger
+
 A mistake occurred. Update ERROR_LEDGER according to AGENTS.md.
 
 Mistake:
@@ -102,7 +126,11 @@ Requirements:
 
 ## 7. Review A Task
 
+Hook: `#harness-review-task`
+
 ```text
+#harness-review-task
+
 Review this task according to AGENTS.md and harness/ rules.
 
 Review scope:
