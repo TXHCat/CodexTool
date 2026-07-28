@@ -15,9 +15,9 @@ Do not store task status, completion history, incident records, commands, versio
 - Vendor or externally owned boundaries: Unknown
 - Historical or reference-only boundaries: Unknown
 
-## Authority and Lifecycle
+## Authority And Lifecycle
 
-Classify each important source by lifecycle and ownership. Examples of lifecycle labels include `Living normative`, `Living implementation`, `Operational verification`, `Derived non-normative`, `Frozen historical`, and `Unknown`.
+Classify each important source by lifecycle and ownership. Examples include `Living normative`, `Living implementation`, `Operational verification`, `Derived non-normative`, `Frozen historical`, and `Unknown`.
 
 | Source | Lifecycle | Owns | Evidence / confirmation source |
 |---|---|---|---|
@@ -35,7 +35,7 @@ Create one row per real first-party responsibility boundary. Do not create rows 
 
 Update this index in the same change when a module is added, removed, relocated, split, merged, or changes ownership, direct dependencies, entry points, lifecycle, generated-asset ownership, or verification routing.
 
-## Dependency and Ownership Direction
+## Dependency And Ownership Direction
 
 - Project-owned dependency notation: `consumer -> direct dependency`.
 - Confirmed dependency edges: Not filled

@@ -1,53 +1,37 @@
 # Harness Codex
 
-This is a lightweight project collaboration file set for Codex. It stores project rules, current task context, verification results, and error records in the project root so Codex relies less on long chat history, reads less irrelevant context, and works with more consistent verification.
+Harness Codex is a lightweight, evidence-first project collaboration file set. It separates durable project navigation, current task recovery, verified results, and reusable failure prevention so Codex can work without depending on long chat history or loading unrelated context.
 
 ## What's Included
 
-- `AGENTS.md`: project working rules.
-- `README_HOW_TO_USE.md`: detailed usage guide.
-- `PROMPTS.md`: ready-to-copy prompt templates.
-- `harness/`: templates for project map, task focus, task status, task result, and error ledger.
+- `AGENTS.md`: project operating rules.
+- `README_HOW_TO_USE.md`: adoption and daily-use guide.
+- `PROMPTS.md`: ready-to-copy task prompts.
+- `harness/HCA_PROJECT_MAP.md`: derived, non-normative project locator.
+- `harness/TASK_*.md`: current task focus, status, and result templates.
+- `harness/ERROR_LEDGER.md`: compact Error Ledger entry point.
+- `harness/error-ledger/`: active prevention patterns, searchable incident catalog, and fixed 25-ID canonical entry shards.
+
+## Core Contracts
+
+- Confirm facts from authoritative or owning sources; the Project Map only locates them.
+- Keep task status, completion history, incidents, commands, versions, hashes, and test evidence out of the Project Map.
+- Update the Project Map when document locations or module/ownership topology change.
+- Search Error Ledger patterns and the catalog first, then open only relevant canonical entries.
+- Create a new incident only when it adds distinct reusable information. Consolidate exact repeats into the matching pattern and current task records.
+- Do not report completion without fresh inspected evidence.
 
 ## How To Use
 
-1. Copy these global hard rules into the custom instructions of Codex Desktop App:
+1. Copy this directory's contents into the root of the target project.
+2. Adapt the authority, repository-boundary, module, dependency, and verification locators in `harness/HCA_PROJECT_MAP.md` from real project files. Mark unknowns instead of guessing.
+3. Ask Codex to read `AGENTS.md`, the compact Project Map, current task records, and `harness/ERROR_LEDGER.md`. It should search only relevant Error Ledger indexes and entries rather than preloading every shard.
+4. Use the prompts in `PROMPTS.md` for initialization, implementation, recovery, and review.
 
-```text
-# Codex Global Hard Rules
-
-You must always follow these rules:
-
-1. Do not fabricate, guess, fake completion, fake verification, or report unverified results.
-2. Do not claim completion without real execution, inspection, tests, logs, screenshots, diffs, or other evidence.
-3. Clarify unclear goals, scope, constraints, and acceptance criteria before acting.
-4. Break problems down from first principles, then choose the simplest stable path that can be verified.
-5. Fix root causes first; do not only patch symptoms.
-6. Avoid pointless trial and error. If two attempts add no new information, stop and reframe the problem.
-7. Keep code clear, stable, and maintainable. Avoid unnecessary complexity, temporary glue, and fragile structure.
-8. Unless explicitly allowed, do not install, download, cache, build, or create project files on the C drive.
-9. Record mistakes in the error ledger and check them before later tasks to avoid repeats.
-10. User-visible text must be concise, direct, and actionable. Do not expose internals, debug details, model errors, JSON, field names, parameter names, prompts, or system mechanics.
-
-Default working principles:
-
-- Do not depend on long chat memory; use project files to preserve state.
-- Do not maximize context; read only what the current task actually needs.
-- Use the shortest path for simple tasks; reserve full planning for complex tasks.
-- For every task, define acceptance criteria, execute, verify, then record.
-- Do not report completion without evidence.
-```
-
-2. Copy all contents of this repository into the root directory of your target project.
-3. Ask Codex to read every document before starting:
-
-```text
-Please read AGENTS.md, README_HOW_TO_USE.md, PROMPTS.md, and every document under harness/. Then start the project under these rules.
-```
+See `README_HOW_TO_USE.md` for the complete workflow.
 
 ## Recommendations
 
 - Do not commit chat history, accounts, keys, private paths, or other private information.
-- For complex tasks, update `harness/TASK_FOCUS_PACK.md` first.
-- Do not mark a task complete without real verification evidence.
-- After a mistake, write it into `harness/ERROR_LEDGER.md` to avoid repeating it.
+- Use the full Focus/Status/Result flow for complex or high-risk tasks and a lightweight status flow for narrow changes.
+- Preserve deleted Error Ledger IDs as permanent gaps; never renumber or reuse them.

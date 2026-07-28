@@ -15,10 +15,10 @@ Do not read every shard before a task.
 
 ```powershell
 # Default lookup
-rg -n -i 'keyword|path|tool' harness/error-ledger/PATTERNS.md harness/error-ledger/CATALOG.md
+rg -n -i 'keyword|path|tool' .harness/error-ledger/PATTERNS.md .harness/error-ledger/CATALOG.md
 
 # Exact retained incident lookup
-rg -n -A 32 '^### ERR-0001\b' harness/error-ledger/entries
+rg -n -A 32 '^### ERR-0001\b' .harness/error-ledger/entries
 ```
 
 ## Record Locations
@@ -40,7 +40,7 @@ rg -n -A 32 '^### ERR-0001\b' harness/error-ledger/entries
 - Record a new incident only when it adds a distinct reusable root cause, prevention rule, verification lesson, or scope boundary.
 - If a failure exactly repeats an existing cause and prevention rule, update the relevant pattern and current task records instead of creating another `ERR` entry.
 - Before work, search only for same or similar failure classes relevant to the task.
-- Allocate new IDs as `max(ERR) + 1` immediately before the single writer edits the ledger. When no incident exists, begin with `ERR-0001`.
+- Allocate new IDs as `max(ERR) + 1` immediately before the single writer edits the Ledger. When no incident exists, begin with `ERR-0001`.
 - Removed IDs are permanent gaps. Never renumber retained records and never reuse a removed ID.
 - Keep every catalog record synchronized with its canonical entry and link it to the correct shard anchor.
 - Remove obsolete records only through an exact manifest, a verified recovery preimage, and a link/reference audit.

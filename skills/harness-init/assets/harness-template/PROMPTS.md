@@ -2,16 +2,12 @@
 
 ## 1. New Project Initialization
 
-Hook: `#harness-init-project`
-
 ```text
-#harness-init-project
-
-Initialize this project using AGENTS.md and the Codex Harness files.
+Initialize this project using the root AGENTS.md and .harness files.
 
 Requirements:
-1. Resolve the workspace and repository roots and check whether project outputs would be created on the C drive.
-2. Read the root structure, README, dependency configuration, and build/test entry points needed to draft harness/HCA_PROJECT_MAP.md.
+1. Resolve workspace and repository roots and check whether project outputs would be created on the C drive.
+2. Read only the root structure, README, dependency configuration, and build/test entry points needed to populate .harness/HCA_PROJECT_MAP.md.
 3. Do not change business code or scan unrelated files.
 4. Treat HCA_PROJECT_MAP as a derived, non-normative locator of authority, boundaries, ownership, dependencies, entry points, and verification routes.
 5. Fill it only from real files and confirmed information. Mark unknowns explicitly and do not guess.
@@ -19,35 +15,10 @@ Requirements:
 7. Report inspected files, confirmed modules, missing information, and current progress.
 ```
 
-## 2. Existing Project Adoption
-
-Hook: `#harness-adopt-project`
+## 2. Every New Task
 
 ```text
-#harness-adopt-project
-
-Adopt Codex Harness for this existing project according to AGENTS.md.
-
-Requirements:
-1. Resolve workspace and repository boundaries before interpreting paths or Git state.
-2. Do not change business code.
-3. If harness/ already exists, merge it without overwriting confirmed project-specific rules or records.
-4. Read only the README, dependency configuration, project structure, build/test configuration, and files required for this adoption.
-5. Populate HCA_PROJECT_MAP only from real sources; classify authority and lifecycle, module ownership, direct dependencies, entry points, and verification routes.
-6. Mark unconfirmed history, decisions, and completed work as unknown or unconfirmed.
-7. Search ERROR_LEDGER's active PATTERNS and CATALOG, then open only relevant canonical entries.
-8. Process known mistakes through ERROR_LEDGER; create incidents only for distinct reusable information and consolidate exact repeats into PATTERNS/current task records.
-9. Report updated files, confirmed modules, missing information, next suggestions, and current progress.
-```
-
-## 3. Every New Task
-
-Hook: `#harness-task`
-
-```text
-#harness-task
-
-Follow AGENTS.md and harness/ rules for this task:
+Follow AGENTS.md and .harness rules for this task:
 
 Task:
 [describe the task]
@@ -63,13 +34,9 @@ Requirements:
 8. Do not report completion without verification evidence.
 ```
 
-## 4. Lightweight Task
-
-Hook: `#harness-light-task`
+## 3. Lightweight Task
 
 ```text
-#harness-light-task
-
 Use a lightweight AGENTS.md flow for this task:
 
 Task:
@@ -83,17 +50,13 @@ Requirements:
 5. Update TASK_STATUS and report the result briefly.
 ```
 
-## 5. Continue An In-Progress Task
-
-Hook: `#harness-resume-task`
+## 4. Continue An In-Progress Task
 
 ```text
-#harness-resume-task
-
-Continue the current task according to AGENTS.md and harness/ rules.
+Continue the current task according to AGENTS.md and .harness rules.
 
 Requirements:
-1. Read HCA_PROJECT_MAP, TASK_FOCUS_PACK, TASK_STATUS, and the compact ERROR_LEDGER entry point; search only relevant active patterns and catalog entries.
+1. Read HCA_PROJECT_MAP, TASK_FOCUS_PACK, TASK_STATUS, and the compact ERROR_LEDGER entry point; search only relevant patterns and catalog entries.
 2. Do not depend on chat history or preload every Error Ledger shard.
 3. If TASK_STATUS conflicts with actual files, stop and report the mismatch.
 4. Confirm the goal, completed work, remaining work, next gate, and verification method.
@@ -101,14 +64,10 @@ Requirements:
 6. Update TASK_STATUS and TASK_RESULT when the evidence is complete.
 ```
 
-## 6. Process A Mistake
-
-Hook: `#harness-error-ledger`
+## 5. Process A Mistake
 
 ```text
-#harness-error-ledger
-
-A mistake occurred. Follow harness/ERROR_LEDGER.md and AGENTS.md.
+A mistake occurred. Follow .harness/ERROR_LEDGER.md and AGENTS.md.
 
 Mistake:
 [describe the mistake]
@@ -123,14 +82,10 @@ Requirements:
 7. Do not continue until the required incident or pattern/task update is complete.
 ```
 
-## 7. Review A Task
-
-Hook: `#harness-review-task`
+## 6. Review A Task
 
 ```text
-#harness-review-task
-
-Review this task according to AGENTS.md and harness/ rules.
+Review this task according to AGENTS.md and .harness rules.
 
 Review scope:
 [describe task or change scope]

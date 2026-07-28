@@ -1,0 +1,4 @@
+interface:
+  display_name: "Harness 初始化"
+  short_description: "快速创建并填充证据优先的项目 .harness 结构"
+  default_prompt: "Use $harness-init to initialize a project .harness structure and populate its Project Map from confirmed files."

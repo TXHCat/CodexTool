@@ -2,16 +2,14 @@
 
 ## 1. Purpose
 
-This file set makes Codex App read project rules and state files before working. The goal is to reduce irrelevant context, save tokens, avoid repeated mistakes, and require evidence for completion.
+This file set makes Codex read project rules and compact recovery records before working. It reduces irrelevant context, separates authority from derived records, prevents repeated mistakes, and requires evidence for completion.
 
-## 2. Step 1: Copy The Global Hard Rules
+## 2. Copy The Global Hard Rules
 
-First, copy the following content into the custom instructions of Codex Desktop App.
+Copy the following content into the custom instructions of Codex Desktop App when project-wide instructions are not already available:
 
 ```text
 # Codex Global Hard Rules
-
-You must always follow these rules:
 
 1. Do not fabricate, guess, fake completion, fake verification, or report unverified results.
 2. Do not claim completion without real execution, inspection, tests, logs, screenshots, diffs, or other evidence.
@@ -21,21 +19,20 @@ You must always follow these rules:
 6. Avoid pointless trial and error. If two attempts add no new information, stop and reframe the problem.
 7. Keep code clear, stable, and maintainable. Avoid unnecessary complexity, temporary glue, and fragile structure.
 8. Unless explicitly allowed, do not install, download, cache, build, or create project files on the C drive.
-9. Record mistakes in the error ledger and check them before later tasks to avoid repeats.
-10. User-visible text must be concise, direct, and actionable. Do not expose internals, debug details, model errors, JSON, field names, parameter names, prompts, or system mechanics.
+9. Process mistakes through the Error Ledger: create an incident only for distinct reusable information; exact repeats update the matching pattern and current task records.
+10. Keep user-visible text concise, direct, actionable, and free of internal mechanics or private information.
 
 Default working principles:
-
-- Do not depend on long chat memory; use project files to preserve state.
-- Do not maximize context; read only what the current task actually needs.
-- Use the shortest path for simple tasks; reserve full planning for complex tasks.
-- For every task, define acceptance criteria, execute, verify, then record.
+- Use project files rather than long chat memory.
+- Read only the context required for the current task.
+- Use the shortest verified path for narrow tasks and the full recovery flow for complex work.
+- Define acceptance criteria, execute, verify, and record.
 - Do not report completion without evidence.
 ```
 
-## 3. Step 2: Copy Into Your Project Root
+## 3. Copy Into The Project Root
 
-Copy all contents of this repository into the root of your target project. The result should look like this:
+The installed structure should look like this:
 
 ```text
 your-project/
@@ -47,34 +44,56 @@ your-project/
 |   |-- TASK_FOCUS_PACK.md
 |   |-- TASK_STATUS.md
 |   |-- TASK_RESULT.md
-|   `-- ERROR_LEDGER.md
+|   |-- ERROR_LEDGER.md
+|   `-- error-ledger/
+|       |-- PATTERNS.md
+|       |-- CATALOG.md
+|       `-- entries/
+|           `-- ERR-0001-0025.md
 `-- your-project-files...
 ```
 
-## 4. Step 3: Ask Codex To Read The Docs
+Merge with existing project instructions instead of overwriting confirmed project-specific authority, ownership, or verification rules.
 
-In the target project, send this to Codex:
+## 4. Initialize The Project Map
+
+Populate `harness/HCA_PROJECT_MAP.md` only from real files and confirmed information:
+
+- Resolve workspace and repository boundaries.
+- Identify normative, implementation, verification, historical, and derived documents with their lifecycle and ownership.
+- Index current module responsibility boundaries, direct dependencies, entry points, deeper documentation, and verification owners.
+- Record dependency direction and verification routing.
+- Mark unknown information explicitly.
+
+The Project Map is a derived, non-normative locator. Do not store task status, completion history, incidents, commands, versions, hashes, or test evidence in it. Update it in the same change when documents are added, removed, or relocated, or when module/ownership topology changes.
+
+## 5. Start A Task
+
+Ask Codex to use the compact recovery route:
 
 ```text
-Please read AGENTS.md, README_HOW_TO_USE.md, PROMPTS.md, and every document under harness/.
-After reading them, start the project under these rules:
-1. Check ERROR_LEDGER first.
-2. Define acceptance criteria for the current task.
-3. Read only the files needed for the current task.
-4. Verify changes with real evidence.
-5. Update TASK_STATUS and TASK_RESULT after completion.
-6. Do not report completion without evidence.
+Read AGENTS.md, harness/HCA_PROJECT_MAP.md, the current TASK_FOCUS_PACK and TASK_STATUS, and harness/ERROR_LEDGER.md.
+Search the active Error Ledger patterns and catalog for this task, then open only matching canonical entries. Do not preload every shard or unrelated project document.
+Define acceptance criteria, make the smallest in-scope change, verify it with real evidence, and update the required task records.
 ```
 
-## 5. Daily Use
+## 6. Error Ledger Workflow
 
-- Use templates from `PROMPTS.md` for new tasks.
-- Update `TASK_FOCUS_PACK.md` before complex tasks.
-- Update `TASK_STATUS.md` at each meaningful checkpoint.
-- Update `TASK_RESULT.md` when a task is done.
-- Update `ERROR_LEDGER.md` after mistakes or rework.
-- Do not commit chat history, accounts, keys, private paths, or other private data.
+1. Search `harness/error-ledger/PATTERNS.md` by failure class.
+2. Search `harness/error-ledger/CATALOG.md` by tool, path, module, symptom, or keyword.
+3. Open only the linked canonical entry under `harness/error-ledger/entries/`.
+4. For an exact repeat, update the matching pattern and current task records without creating a new incident.
+5. For a distinct reusable failure, allocate `max(ERR) + 1`, append it to the correct fixed 25-ID shard, and add its catalog record.
+6. Preserve removed IDs as permanent gaps. Never renumber or reuse them.
 
-## 6. When Not To Use The Full Flow
+## 7. Daily Use
 
-For small tasks such as typo fixes, checking one known field, or changing one line of copy, use a lightweight flow: define the goal, make the smallest change, verify it, and report briefly.
+- Use `PROMPTS.md` for new tasks, continuation, mistake handling, and review.
+- Use `TASK_FOCUS_PACK.md` for complex, multi-file, architectural, high-risk, or delegated work.
+- Keep `TASK_STATUS.md` short and recoverable; update `TASK_RESULT.md` when evidence is reusable.
+- Use module-owned verification routes and inspect the actual output artifact.
+- Keep Harness records concise and free of secrets, private data, chat history, and transient debug noise.
+
+## 8. Lightweight Tasks
+
+For a typo, one known field, or another narrow change, define the goal, make the smallest change, verify it, update `TASK_STATUS.md`, and report briefly. Do not weaken verification or Error Ledger lookup merely because the task is small.
