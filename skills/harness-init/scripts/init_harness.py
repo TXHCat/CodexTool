@@ -109,7 +109,7 @@ def inspect_harness(harness_root: Path, template_root: Path, inventory: list[Pat
     marker = harness_root / ".harness-init"
     if marker.is_symlink() or not marker.is_file():
         raise HarnessInitError("Existing .harness is unmanaged; marker is missing.")
-    if read_utf8_preserving_newlines(marker) != MANAGED_MARKER:
+    if normalized_newlines(read_utf8_preserving_newlines(marker)) != MANAGED_MARKER:
         raise HarnessInitError("Existing .harness has an unsupported managed marker.")
 
     missing = [relative for relative in inventory if not (harness_root / relative).is_file()]
