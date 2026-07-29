@@ -25,15 +25,14 @@ Task:
 
 Requirements:
 1. Read the compact ERROR_LEDGER entry point, search active PATTERNS and CATALOG, and open only matching canonical entries.
-2. Define acceptance criteria, related files, out-of-scope areas, risks, and verification method; use TASK_FOCUS_PACK for complex work.
+2. Define acceptance criteria, related files, out-of-scope areas, risks, and verification method. Classify the task as lightweight or full-flow; use TASK_FOCUS_PACK for full-flow work.
 3. Read only authoritative or owning files relevant to this task.
-4. As the main Agent, delegate implementation to a bounded implementation subagent with explicit evidence, acceptance checks, and single-writer ownership. Do not permit recursive delegation unless explicitly authorized.
-5. Keep the change scope minimal, avoid unrelated refactors, and update HCA_PROJECT_MAP in the same change if documents or module/ownership topology change.
+4. For lightweight work, the main Agent may implement directly and may omit independent Review. For full-flow work, use a bounded implementation Subagent and a different read-only Review Subagent.
+5. Keep the change scope minimal, avoid unrelated refactors or authority expansion, and update HCA_PROJECT_MAP in the same change if documents or module/ownership topology change.
 6. Verify the result through the owning route with fresh inspected evidence.
-7. Assign a different independent subagent to review the actual diff, artifacts, acceptance, scope, authority and ownership, tests and evidence, and relevant Error Ledger patterns read-only.
-8. Validate findings. Fix every valid finding, rerun affected checks, and repeat independent review until zero unresolved findings remain.
-9. Update the required TASK_STATUS and TASK_RESULT records.
-10. Do not advance or report completion while review is pending, a finding remains, or required evidence is missing. If subagents are unavailable, report the task blocked.
+7. When Review is required, validate findings, fix every valid finding, rerun affected checks, and repeat independent Review until zero unresolved findings remain.
+8. Update the required TASK_STATUS and TASK_RESULT records.
+9. Do not advance or report completion while an applicable gate is pending, a finding remains, or required evidence is missing. Subagent unavailability blocks only full-flow work.
 ```
 
 ## 3. Lightweight Task
@@ -47,10 +46,10 @@ Task:
 Requirements:
 1. Search the compact Error Ledger indexes for relevant mistakes.
 2. Define the goal and allowed scope.
-3. Delegate the smallest necessary change to a bounded implementation subagent with single-writer ownership.
-4. Verify it with the owning route, then have a different independent subagent review the actual change and evidence read-only.
-5. Fix valid findings, rerun affected checks, and repeat review until no unresolved finding remains.
-6. Update TASK_STATUS and report briefly only after all gates pass; otherwise report blocked or incomplete.
+3. Make the smallest necessary change directly, with no unrelated refactors or authority expansion, or use an optional bounded implementation Subagent under the same constraint.
+4. Verify it with the owning route. Independent Review is optional unless risk, scope growth, rework, or the user requires it.
+5. If Review is used, fix valid findings, rerun affected checks, and repeat Review until no unresolved finding remains.
+6. Update TASK_STATUS with the classification, omitted optional gates, and verification evidence; reclassify if the task stops being lightweight.
 ```
 
 ## 4. Continue An In-Progress Task
@@ -63,9 +62,9 @@ Requirements:
 2. Do not depend on chat history or preload every Error Ledger shard.
 3. If TASK_STATUS conflicts with actual files, stop and report the mismatch.
 4. Confirm the goal, completed work, remaining work, next gate, and verification method.
-5. Continue through the required implementation-subagent, owning verification, and independent review loop.
-6. Fix valid findings, rerun affected checks, and repeat independent review until no unresolved finding remains.
-7. Do not advance or report completion while review is pending, evidence is missing, or a finding remains; report blocked if subagents are unavailable.
+5. Confirm the saved lightweight/full-flow classification and reclassify if scope, risk, or rework has expanded.
+6. Continue through every applicable implementation, verification, and Review gate; lightweight work may omit optional Subagent/Review gates.
+7. Do not advance or report completion while an applicable gate is pending, evidence is missing, or a finding remains.
 8. Update TASK_STATUS and TASK_RESULT when the evidence is complete.
 ```
 

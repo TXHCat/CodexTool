@@ -27,21 +27,21 @@ Use this compact recovery route:
 ```text
 Read AGENTS.md, .harness/HCA_PROJECT_MAP.md, the current TASK_FOCUS_PACK and TASK_STATUS, and .harness/ERROR_LEDGER.md.
 Search active Error Ledger patterns and the catalog, then open only matching canonical entries. Do not preload every shard or unrelated project document.
-Define acceptance criteria, delegate only the smallest necessary in-scope implementation with no unrelated refactors or authority expansion, verify it with real evidence, and send it to an independent read-only review.
-Fix valid findings, rerun affected checks, and repeat review until zero unresolved findings remain before updating the completed task records or advancing.
+Define acceptance criteria and classify the task. Lightweight work may be implemented directly and may omit independent Review; full-flow work uses a bounded implementation Subagent and independent read-only Review.
+Always make the smallest necessary in-scope change with no unrelated refactors or authority expansion, verify it with real evidence, and complete every gate required by the classification before advancing.
 ```
 
-## 5. Task Execution And Review Gate
+## 5. Task Classification And Review Gates
 
-The main Agent runs tasks in order. For each task:
+Classify each task before editing:
 
-1. Delegate implementation to a bounded implementation subagent that makes only the smallest necessary in-scope change, with no unrelated refactors or authority expansion, using the required evidence, acceptance checks, and one writer per file. That subagent must not delegate again unless explicitly authorized.
-2. Run and inspect the owning verification route.
-3. Assign a different subagent to review the actual diff, artifacts, scope, authority and ownership, tests and evidence, and relevant Error Ledger patterns. Review is read-only.
-4. Validate the findings, fix every valid issue, rerun affected checks, and request another independent review.
-5. Repeat until the latest review has zero unresolved findings. Only then may the main Agent continue to the next task or report completion.
+1. Use the lightweight flow for narrow, low-risk, reversible work with straightforward verification and no runtime behavior, architecture, normative product semantics, authority hierarchy, security, migration, destructive-state, release, or publication impact. Mechanical synchronization across copies may remain lightweight.
+2. In the lightweight flow, the main Agent may implement directly and may omit independent Review. Delegation and Review are optional independently; record why the classification is safe, make no unrelated refactors or authority expansion, and still verify the result.
+3. Use the full flow when risk crosses those boundaries, the user requests it, or lightweight work expands or requires non-trivial rework.
+4. In the full flow, delegate the smallest necessary implementation with no unrelated refactors or authority expansion to a bounded single-writer Subagent, verify it, and assign a different read-only Review Subagent.
+5. Fix valid findings, rerun affected checks, and repeat required Review until zero unresolved findings remain.
 
-If implementation or review subagents are unavailable, report the task blocked; do not silently skip the gate. The main Agent owns integration, and reviewers never edit implementation or evidence.
+Unavailable Subagents block only tasks whose classification requires them. The main Agent owns integration, and Reviewers never edit implementation or evidence.
 
 ## 6. Error Ledger Workflow
 
@@ -62,4 +62,4 @@ If implementation or review subagents are unavailable, report the task blocked; 
 
 ## 8. Lightweight Tasks
 
-For a typo, one known field, or another narrow change, keep planning and records lightweight and make only the smallest necessary in-scope change, with no unrelated refactors or authority expansion, while retaining Error Ledger lookup, the implementation-subagent gate, owning verification, and independent review.
+For a typo, one known field, local copy, or another narrow low-risk change, record the lightweight rationale, make the smallest necessary in-scope change with no unrelated refactors or authority expansion directly or through an optional Subagent, verify it, and report briefly. Independent Review is optional unless risk, scope growth, rework, or the user makes it required.
