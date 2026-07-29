@@ -8,6 +8,14 @@ Store short current-task status so work can continue after context compaction, t
 
 - Not filled
 
+## Task Classification And Review State
+
+- Classification: Not classified
+- Review required: Not decided
+- Review rounds used: 0/2
+- Blocking findings: None recorded
+- Deferred non-blocking suggestions: None
+
 ## Completed
 
 - None

@@ -12,6 +12,15 @@ Record the real outcome, verification method, and evidence after a task. Without
 
 - Not completed yet
 
+## Review Result
+
+- Classification: Not classified
+- Review required: Not decided
+- Review rounds used: 0/2
+- Blocking findings: None recorded
+- Deferred non-blocking suggestions: None
+- Conclusion: Not reviewed
+
 ## Changed Files
 
 - None

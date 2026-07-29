@@ -39,9 +39,12 @@ Classify each task before editing:
 2. In the lightweight flow, the main Agent may implement directly and may omit independent Review. Delegation and Review are optional independently; record why the classification is safe, make no unrelated refactors or authority expansion, and still verify the result.
 3. Use the full flow when risk crosses those boundaries, the user requests it, or lightweight work expands or requires non-trivial rework.
 4. In the full flow, delegate the smallest necessary implementation with no unrelated refactors or authority expansion to a bounded single-writer Subagent, verify it, and assign a different read-only Review Subagent.
-5. Fix valid findings, rerun affected checks, and repeat required Review until zero unresolved findings remain.
+5. Use at most two Review rounds by default. Round 1 covers the declared scope; round 2 covers only the blocker-fix delta, affected checks, and direct regression boundary.
+6. Treat acceptance failures, correctness defects, out-of-scope changes, authority/ownership conflicts, security/data/destructive risks, missing required verification, and issues that make completion claims false as blocking. Record style preferences, optional refactors, future hardening, and other non-blocking suggestions once in `TASK_RESULT.md`; do not fix or re-review them.
+7. Require each Review to report its round, checked scope, blocking findings, non-blocking suggestions, evidence, conclusion, and remaining risk. Reject duplicate, unsupported, out-of-scope, and re-litigation findings with a recorded rationale.
+8. Do not start an automatic third Review. After round 2, allow one scope-preserving deterministic small fix without another Review; otherwise record budget exhaustion and request user direction. Administrative recovery or evidence-link updates after Review do not consume a round.
 
-Unavailable Subagents block only tasks whose classification requires them. The main Agent owns integration, and Reviewers never edit implementation or evidence.
+Unavailable Subagents block only tasks whose classification requires them. The main Agent owns integration, and Reviewers never edit implementation or evidence. Explicit Review requests use the same two-round cap unless the user authorizes more.
 
 ## 6. Error Ledger Workflow
 

@@ -30,9 +30,9 @@ Requirements:
 4. For lightweight work, the main Agent may implement directly and may omit independent Review. For full-flow work, use a bounded implementation Subagent and a different read-only Review Subagent.
 5. Keep the change scope minimal, avoid unrelated refactors or authority expansion, and update HCA_PROJECT_MAP in the same change if documents or module/ownership topology change.
 6. Verify the result through the owning route with fresh inspected evidence.
-7. When Review is required, validate findings, fix every valid finding, rerun affected checks, and repeat independent Review until zero unresolved findings remain.
+7. When Review is required, use at most two rounds: round 1 checks the full declared scope; after blocking fixes, round 2 checks only the fix delta, affected verification, and direct regression boundary. A pass requires zero unresolved blocking findings.
 8. Update the required TASK_STATUS and TASK_RESULT records.
-9. Do not advance or report completion while an applicable gate is pending, a finding remains, or required evidence is missing. Subagent unavailability blocks only full-flow work.
+9. Record non-blocking suggestions once in TASK_RESULT without fixing or re-reviewing them. Pure recovery-record or evidence-link maintenance after Review does not trigger another Review. Do not advance or report completion while an applicable gate is pending, a blocking finding remains, or required evidence is missing. Subagent unavailability blocks only full-flow work.
 ```
 
 ## 3. Lightweight Task
@@ -48,7 +48,7 @@ Requirements:
 2. Define the goal and allowed scope.
 3. Make the smallest necessary change directly, with no unrelated refactors or authority expansion, or use an optional bounded implementation Subagent under the same constraint.
 4. Verify it with the owning route. Independent Review is optional unless risk, scope growth, rework, or the user requires it.
-5. If Review is used, fix valid findings, rerun affected checks, and repeat Review until no unresolved finding remains.
+5. If Review is used, apply the same two-round budget and blocking-finding threshold as the full flow. Record non-blocking suggestions once without cycling on them.
 6. Update TASK_STATUS with the classification, omitted optional gates, and verification evidence; reclassify if the task stops being lightweight.
 ```
 
@@ -64,7 +64,7 @@ Requirements:
 4. Confirm the goal, completed work, remaining work, next gate, and verification method.
 5. Confirm the saved lightweight/full-flow classification and reclassify if scope, risk, or rework has expanded.
 6. Continue through every applicable implementation, verification, and Review gate; lightweight work may omit optional Subagent/Review gates.
-7. Do not advance or report completion while an applicable gate is pending, evidence is missing, or a finding remains.
+7. Do not advance or report completion while an applicable gate is pending, evidence is missing, or a blocking finding remains within the bounded Review flow.
 8. Update TASK_STATUS and TASK_RESULT when the evidence is complete.
 ```
 
@@ -100,5 +100,8 @@ Requirements:
 3. Be independent from the implementation subagent and remain read-only; do not edit implementation or evidence.
 4. Check acceptance criteria, scope and unrelated changes, authority and ownership boundaries, tests and verification evidence, and relevant Error Ledger patterns.
 5. Check whether document or module topology changes required a same-change HCA_PROJECT_MAP update.
-6. Output pass/fail, evidence, required rework, unresolved findings, remaining risk, and current progress. A pass requires zero unresolved findings.
+6. State whether this is round 1 or round 2. Round 1 checks the complete declared scope. Round 2 checks only the blocker-fix delta, affected verification, and direct regression boundary; do not reopen unchanged scope or accepted decisions.
+7. Classify as blocking only acceptance failures, correctness defects, out-of-scope changes, authority/ownership conflicts, security/data/destructive risks, missing required verification, or issues that make completion claims false. Style preferences, optional refactors, future hardening, and suggestions not required for current acceptance are non-blocking.
+8. Output the round, checked scope, blocking findings, non-blocking suggestions, evidence, conclusion, and remaining risk. A pass requires zero unresolved blocking findings.
+9. Do not request a third Review. After round 2, identify whether any remaining blocker permits one scope-preserving deterministic small fix or requires the main Agent to record budget exhaustion and request user direction.
 ```

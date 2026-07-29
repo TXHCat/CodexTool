@@ -56,13 +56,13 @@ Use this evidence-first Harness to preserve only the context needed for current 
 5. For lightweight work, the main Agent may make only the smallest necessary in-scope change, with no unrelated refactors or authority expansion, directly or through delegation. For full-flow work, delegate the same bounded change to an implementation subagent with explicit evidence inputs, acceptance checks, and single-writer ownership.
 6. Verify through the owning module's route and inspect the actual output, not only the command invocation.
 7. Use an independent read-only Review subagent when the full flow applies, the risk justifies it, or the user requests it. Lightweight work may omit this gate.
-8. When review is required, validate every finding, fix each valid finding, rerun affected checks, and repeat independent review until no finding remains unresolved.
+8. When Review is required, use at most two independent rounds by default. Round 1 inspects the complete declared scope. After the main Agent validates findings and fixes blocking findings, round 2 inspects only that fix delta, affected verification, and the direct regression boundary. A pass requires zero unresolved blocking findings; non-blocking suggestions do not trigger fixes or another Review.
 9. Update the required Harness recovery records with concise current state and reusable evidence.
 10. If a mistake or missed verification occurs, follow `.harness/ERROR_LEDGER.md` before proceeding.
 
 Do not preload every Error Ledger shard or every project document.
 
-Do not advance to the next task or report completion while a required review is pending, a finding remains unresolved, or required evidence is missing.
+Do not advance to the next task or report completion while a required Review is pending, a blocking finding remains unresolved, or required evidence is missing.
 
 ## 6. Task Classification, Subagent Execution, And Review Gates
 
@@ -71,11 +71,14 @@ Do not advance to the next task or report completion while a required review is 
 - For lightweight work, implementation delegation and independent Review are optional and may be omitted independently. Record the lightweight classification and rationale, keep one writer, make only the smallest necessary in-scope change with no unrelated refactors or authority expansion, and run proportionate verification.
 - If scope expands, verification becomes ambiguous, a mistake causes non-trivial rework, or new risk crosses a lightweight boundary, reclassify the task and apply the full Subagent/Review flow before continuing.
 - When the full flow applies, delegate only the smallest necessary in-scope implementation, with no unrelated refactors or authority expansion, to a bounded subagent with explicit inputs, outputs, constraints, evidence, acceptance checks, and single-writer ownership. The implementation subagent must not recursively delegate unless the main Agent explicitly authorizes it.
-- When Review is required, after implementation and owning-route verification assign a different independent review subagent to inspect the actual diff, artifacts, acceptance criteria, scope, authority and ownership boundaries, tests and evidence, and relevant Error Ledger patterns.
-- The reviewer is read-only and never edits implementation or evidence.
-- When Review is required, the main Agent validates its findings. Every valid finding must be fixed, affected checks rerun, and the modified task independently reviewed again until zero unresolved findings remain.
-- Do not begin the next task or report completion while a required review is pending, a finding remains unresolved, or required evidence is missing. If a required Subagent or Reviewer is unavailable, report the task blocked; this does not block a correctly classified lightweight task whose optional gates were omitted.
-- An explicit user request for Subagent execution or Review overrides the lightweight exemption.
+- When Review is required, after implementation and owning-route verification assign a different independent review subagent for round 1 to inspect the actual diff, artifacts, acceptance criteria, scope, authority and ownership boundaries, tests and evidence, and relevant Error Ledger patterns. The reviewer is read-only and never edits implementation or evidence.
+- A blocking finding is an acceptance failure, correctness defect, out-of-scope change, authority or ownership conflict, security/data/destructive risk, missing required verification, or any issue that would make the completion claim false. Style preferences, optional refactors, future hardening, and suggestions not required for current acceptance are non-blocking; record them once in `.harness/TASK_RESULT.md`, then finish without fixing or re-reviewing them.
+- Every Review return must state the round, checked scope, blocking findings, non-blocking suggestions, evidence, conclusion, and remaining risk. The main Agent validates findings and rejects duplicate, unsupported, out-of-scope, or re-litigation findings with a recorded rationale.
+- The default Review budget is two independent rounds. Round 1 covers the full declared scope. If blocking findings are fixed, round 2 covers only the blocker-fix delta, affected verification, and direct regression boundary; it must not reopen unchanged scope or accepted decisions. A pass requires zero unresolved blocking findings.
+- Do not start an automatic third Review. After round 2, the main Agent may make one scope-preserving small fix only when objective deterministic checks can prove it, then close without another Review. If the remaining fix changes behavior, architecture, scope, or authority judgment, or requires subjective validation, record Review-budget exhaustion and request user direction.
+- Pure recovery-record synchronization, evidence-link maintenance, and other administrative updates after Review do not trigger another Review when they do not change the reviewed implementation or acceptance evidence.
+- Do not begin the next task or report completion while a required Review is pending, a blocking finding remains unresolved within the available budget, or required evidence is missing. If a required Subagent or Reviewer is unavailable, report the task blocked; this does not block a correctly classified lightweight task whose optional gates were omitted.
+- An explicit user request for Subagent execution or Review overrides the lightweight exemption, but the two-round cap still applies unless the user explicitly authorizes more rounds.
 - Delegation never expands authority, scope, filesystem permission, or permission to modify user-owned work.
 
 ## 7. Error Ledger Rules
@@ -99,4 +102,4 @@ Do not advance to the next task or report completion while a required review is 
 
 ## 9. Definition Of Done
 
-A task is done only when its acceptance criteria are met, the allowed scope and classification are explainable, required implementation work was actually executed, key results have fresh inspected evidence, required Harness records are current, every required independent review is complete with zero unresolved findings, and no obvious risk is ignored. If a required review is pending, a valid finding remains, required evidence is missing, or any other applicable gate failed, do not advance or report completion; report the task as incomplete or blocked with the next concrete action.
+A task is done only when its acceptance criteria are met, the allowed scope and classification are explainable, required implementation work was actually executed, key results have fresh inspected evidence, required Harness records are current, every required independent Review is complete with zero unresolved blocking findings, and no obvious risk is ignored. Non-blocking suggestions may remain only when recorded once in `.harness/TASK_RESULT.md`. If a required Review is pending, a blocking finding remains, required evidence is missing, or any other applicable gate failed, do not advance or report completion; apply the bounded Review-budget rule and report the next concrete action.
