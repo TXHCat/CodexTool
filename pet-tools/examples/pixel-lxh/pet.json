@@ -2,5 +2,6 @@
   "id": "pixel-lxh",
   "displayName": "Pixel LXH",
   "description": "A pixel-style Codex pet regenerated from the LXH source sprites.",
+  "spriteVersionNumber": 2,
   "spritesheetPath": "spritesheet.webp"
 }
