@@ -38,7 +38,7 @@ rg -n -A 32 '^### ERR-0001\b' .harness/error-ledger/entries
 ## Rules
 
 - Record a new incident only when it adds a distinct reusable root cause, prevention rule, verification lesson, or scope boundary.
-- If a failure exactly repeats an existing cause and prevention rule, update the relevant pattern and current task records instead of creating another `ERR` entry.
+- If a failure exactly repeats an existing cause and prevention rule, update the relevant pattern only when reusable prevention information changes; do not create another `ERR` entry by default.
 - Before work, search only for same or similar failure classes relevant to the task.
 - Allocate new IDs as `max(ERR) + 1` immediately before the single writer edits the Ledger. When no incident exists, begin with `ERR-0001`.
 - Removed IDs are permanent gaps. Never renumber retained records and never reuse a removed ID.
@@ -46,12 +46,12 @@ rg -n -A 32 '^### ERR-0001\b' .harness/error-ledger/entries
 - Remove obsolete records only through an exact manifest, a verified recovery preimage, and a link/reference audit.
 - Do not infer old dates or rewrite verification without current evidence.
 - Do not record keys, accounts, credentials, private paths, chat history, or other private information.
-- Current product status comes from living authorities, owning module documents, code/configuration/assets, current task records, and fresh verification—not from an incident record.
+- Current product status comes from living authorities, owning module documents, code/configuration/assets, and fresh verification—not from an incident record.
 
 ## Adding A Record
 
 1. Use one writer for all affected Ledger files.
-2. Search the patterns and catalog. If the failure adds no distinct reusable information, update the matching pattern/task record and stop.
+2. Search the patterns and catalog. If the failure adds no distinct reusable prevention information, update the matching pattern only if needed and stop.
 3. Otherwise derive and allocate `max(ERR) + 1`; never fill a deleted gap.
 4. Append the record to the fixed 25-ID shard, creating the shard from the established header format only when its range is first used.
 5. Add one concise catalog record with scope, keywords, related retained IDs, an evidence-derived title, and a link to the canonical entry.

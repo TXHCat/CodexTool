@@ -27,7 +27,7 @@ Create a recoverable project Harness without overwriting existing project rules 
    ```
 
 8. Populate `.harness/HCA_PROJECT_MAP.md` from the confirmed project facts gathered in step 2. Keep unknown values as `Unknown`; do not claim planned modules exist.
-9. Leave `.harness/TASK_FOCUS_PACK.md`, `.harness/TASK_STATUS.md`, and `.harness/TASK_RESULT.md` as blank templates unless the user separately asks to initialize task records.
+9. Do not create task templates by default. Create one `.harness/TASK_STATUS.md` only when interruption, handoff, or cross-session recovery requires it; include only goal, scope, key decisions, verified progress, blockers, and next step. Overwrite it as work proceeds and delete it on completion.
 10. Verify the installed structure, root bootstrap, Project Map evidence boundaries, relative links, zero-record Error Ledger, Git scope, and diff hygiene before reporting completion.
 
 ## Project Map Rules
@@ -51,7 +51,7 @@ Create a recoverable project Harness without overwriting existing project rules 
 ## Verification
 
 - Require the initializer's apply result and a second no-op preflight to succeed.
-- Confirm every template file exists and `.harness/.harness-init` identifies schema version 1.
+- Confirm the managed structure and `.harness/.harness-init` schema version 1 marker.
 - Confirm the root bootstrap points to `.harness/AGENTS.md` and existing root instructions remain byte-for-byte unchanged outside the bounded block.
 - Confirm `CATALOG.md` reports zero retained records and the first shard contains no canonical `### ERR-NNNN` entry.
 - Validate Markdown links from their actual document directories and run the repository's diff-hygiene check.

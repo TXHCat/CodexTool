@@ -56,9 +56,7 @@ Adding, removing, or relocating a discovered authority, module README, focused r
 
 ## Task Recovery
 
-- [TASK_FOCUS_PACK](TASK_FOCUS_PACK.md): current complex-task context, constraints, and acceptance focus.
-- [TASK_STATUS](TASK_STATUS.md): short progress state and next recovery gate.
-- [TASK_RESULT](TASK_RESULT.md): verified outcomes, evidence pointers, and known gaps.
+- `TASK_STATUS.md`: optional recovery state, created only when interruption, handoff, or cross-session recovery requires it.
 - [ERROR_LEDGER](ERROR_LEDGER.md): compact retrieval and write contract; do not preload every incident shard.
 - [Error patterns](error-ledger/PATTERNS.md): consolidated active prevention rules.
 - [Error catalog](error-ledger/CATALOG.md): complete retained lookup into fixed 25-ID canonical incident shards; removed IDs are permanent gaps and are never reused.

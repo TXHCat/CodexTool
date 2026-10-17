@@ -25,14 +25,14 @@ Task:
 
 Requirements:
 1. Read the compact ERROR_LEDGER entry point, search active PATTERNS and CATALOG, and open only matching canonical entries.
-2. Define acceptance criteria, related files, out-of-scope areas, risks, and verification method. Classify the task as lightweight or full-flow; use TASK_FOCUS_PACK for full-flow work.
+2. Define acceptance criteria, related files, out-of-scope areas, risks, and verification method. Classify the task as lightweight or full-flow.
 3. Read only authoritative or owning files relevant to this task.
 4. For lightweight work, the main Agent may implement directly and may omit independent Review. For full-flow work, use a bounded implementation Subagent and a different read-only Review Subagent.
 5. Keep the change scope minimal, avoid unrelated refactors or authority expansion, and update HCA_PROJECT_MAP in the same change if documents or module/ownership topology change.
 6. Verify the result through the owning route with fresh inspected evidence.
 7. When Review is required, use at most two rounds: round 1 checks the full declared scope; after blocking fixes, round 2 checks only the fix delta, affected verification, and direct regression boundary. A pass requires zero unresolved blocking findings.
-8. Update the required TASK_STATUS and TASK_RESULT records.
-9. Record non-blocking suggestions once in TASK_RESULT without fixing or re-reviewing them. Pure recovery-record or evidence-link maintenance after Review does not trigger another Review. Do not advance or report completion while an applicable gate is pending, a blocking finding remains, or required evidence is missing. Subagent unavailability blocks only full-flow work.
+8. Default to no Harness task record. Create one TASK_STATUS only when interruption, handoff, or cross-session recovery requires it, and then record only goal, scope, key decisions, verified progress, blockers, and next step; overwrite it as work proceeds and delete it on completion.
+9. Report non-blocking suggestions in the conversation without fixing or re-reviewing them. Do not advance or report completion while an applicable gate is pending, a blocking finding remains, or required verification is missing. Verification may be evidenced by actual tool results in the conversation; no separate evidence file is required. Subagent unavailability blocks only full-flow work.
 ```
 
 ## 3. Lightweight Task
@@ -49,7 +49,7 @@ Requirements:
 3. Make the smallest necessary change directly, with no unrelated refactors or authority expansion, or use an optional bounded implementation Subagent under the same constraint.
 4. Verify it with the owning route. Independent Review is optional unless risk, scope growth, rework, or the user requires it.
 5. If Review is used, apply the same two-round budget and blocking-finding threshold as the full flow. Record non-blocking suggestions once without cycling on them.
-6. Update TASK_STATUS with the classification, omitted optional gates, and verification evidence; reclassify if the task stops being lightweight.
+6. Do not create a Harness record by default; reclassify if the task stops being lightweight.
 ```
 
 ## 4. Continue An In-Progress Task
@@ -58,14 +58,14 @@ Requirements:
 Continue the current task according to AGENTS.md and .harness rules.
 
 Requirements:
-1. Read HCA_PROJECT_MAP, TASK_FOCUS_PACK, TASK_STATUS, and the compact ERROR_LEDGER entry point; search only relevant patterns and catalog entries.
-2. Do not depend on chat history or preload every Error Ledger shard.
-3. If TASK_STATUS conflicts with actual files, stop and report the mismatch.
+1. Read HCA_PROJECT_MAP and the compact ERROR_LEDGER entry point; read TASK_STATUS only if it exists for recovery. Search only relevant patterns and catalog entries.
+2. Use actual verification evidence available in the current conversation and any recovery summary that exists; a task record is not required to continue. Do not preload every Error Ledger shard.
+3. If an existing TASK_STATUS conflicts with actual files, stop and report the mismatch.
 4. Confirm the goal, completed work, remaining work, next gate, and verification method.
-5. Confirm the saved lightweight/full-flow classification and reclassify if scope, risk, or rework has expanded.
+5. Classify from the actual scope and risk, and reclassify if either has changed; no saved classification field is required.
 6. Continue through every applicable implementation, verification, and Review gate; lightweight work may omit optional Subagent/Review gates.
 7. Do not advance or report completion while an applicable gate is pending, evidence is missing, or a blocking finding remains within the bounded Review flow.
-8. Update TASK_STATUS and TASK_RESULT when the evidence is complete.
+8. Update the existing TASK_STATUS only when recovery tracking is needed; delete it when the task completes.
 ```
 
 ## 5. Process A Mistake
@@ -79,11 +79,11 @@ Mistake:
 Requirements:
 1. Stop the failing execution path.
 2. Search PATTERNS and CATALOG to decide whether the failure adds distinct reusable information.
-3. For an exact repeat, update the matching pattern and current task records without allocating a new ERR ID.
-4. For a distinct failure, allocate max(ERR) + 1 immediately before writing, append the full record to the correct fixed 25-ID shard, and add the catalog entry.
+3. For an exact repeat, update the matching pattern only when reusable prevention information changes; do not create a new task record by default.
+4. For a distinct reusable failure, allocate max(ERR) + 1 immediately before writing, append the full record to the correct fixed 25-ID shard, and add the catalog entry.
 5. Record the symptom, location, root cause, fix, prevention rule, next check, and verification evidence without private data.
-6. Update TASK_FOCUS_PACK with the prevention constraint and define the smallest repair plan.
-7. Do not continue until the required incident or pattern/task update is complete.
+6. Update the existing owning document when the prevention information is important long-term.
+7. Create a Ledger incident only when the failure adds new reusable prevention information. Repeated failures, parameter mistakes, and temporary offline states do not require new incidents.
 ```
 
 ## 6. Review A Task
@@ -95,7 +95,7 @@ Review scope:
 [describe task or change scope]
 
 Requirements:
-1. Read TASK_FOCUS_PACK and TASK_RESULT, then search ERROR_LEDGER's active patterns and catalog for the review scope.
+1. Search ERROR_LEDGER's active patterns and catalog for the review scope; read any recovery status that exists.
 2. Inspect the actual diff and fresh verification evidence; do not rely on verbal claims.
 3. Be independent from the implementation subagent and remain read-only; do not edit implementation or evidence.
 4. Check acceptance criteria, scope and unrelated changes, authority and ownership boundaries, tests and verification evidence, and relevant Error Ledger patterns.
