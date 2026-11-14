@@ -1,4 +1,4 @@
 interface:
   display_name: "Harness 初始化"
-  short_description: "快速创建并填充证据优先的项目 .harness 结构"
-  default_prompt: "Use $harness-init to initialize a project .harness structure and populate its Project Map from confirmed files."
+  short_description: "初始化 Project Map 与 Error Ledger 两项项目能力"
+  default_prompt: "Use $harness-init to set up a Project Map and Error Ledger from confirmed project files while preserving existing root AGENTS.md instructions."

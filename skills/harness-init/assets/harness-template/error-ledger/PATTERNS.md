@@ -7,7 +7,7 @@ These patterns are the default prevention surface. Search them before opening in
 - Add or revise a pattern only when retained incident evidence supports a reusable cross-task prevention rule.
 - Keep triggers, rules, and search terms concise and stable.
 - Link only retained canonical incidents as representative evidence.
-- An exact repeat updates the matching pattern only when reusable prevention information changes; it does not require a task record or new incident ID.
+- An exact repeat updates the matching pattern only when reusable prevention information changes; it does not require a new incident ID.
 - Removing a representative incident requires checking and repairing every affected pattern link.
 
 ## Pattern Template

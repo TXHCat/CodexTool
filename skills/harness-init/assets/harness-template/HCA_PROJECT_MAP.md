@@ -4,7 +4,7 @@
 
 This is a derived, non-normative long-term index. Use it to locate authority, repository boundaries, module ownership, dependency direction, entry points, and verification routes; confirm living claims against the authoritative or owning source.
 
-Do not store task status, completion history, incident records, commands, versions, hashes, or test evidence here. Populate this map only from real files and confirmed information. Mark unknowns explicitly instead of guessing.
+Do not store transient execution state, completion history, incident records, commands, versions, hashes, or test evidence here. Populate this map only from real files and confirmed information. Mark unknowns explicitly instead of guessing.
 
 ## Repository Boundaries
 
@@ -23,7 +23,7 @@ Classify each important source by lifecycle and ownership. Examples include `Liv
 |---|---|---|---|
 | Not filled | Unknown | Not filled | Not filled |
 
-Harness records are operational and derived. They do not override product requirements, owning module documentation, code, configuration, assets, or fresh verification evidence.
+Project Map locators and retained prevention evidence do not override product requirements, owning module documentation, code, configuration, assets, or fresh verification evidence.
 
 ## Module Index
 
@@ -54,9 +54,8 @@ Update this index in the same change when a module is added, removed, relocated,
 
 Adding, removing, or relocating a discovered authority, module README, focused reference, entry point, or verification owner invalidates the affected locator and requires a same-change Project Map update.
 
-## Task Recovery
+## Failure Prevention
 
-- `TASK_STATUS.md`: optional recovery state, created only when interruption, handoff, or cross-session recovery requires it.
 - [ERROR_LEDGER](ERROR_LEDGER.md): compact retrieval and write contract; do not preload every incident shard.
 - [Error patterns](error-ledger/PATTERNS.md): consolidated active prevention rules.
 - [Error catalog](error-ledger/CATALOG.md): complete retained lookup into fixed 25-ID canonical incident shards; removed IDs are permanent gaps and are never reused.

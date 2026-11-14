@@ -1,11 +1,16 @@
 ---
 name: harness-init
-description: Initialize or adopt an evidence-first project Harness under `.harness`, safely integrate a root AGENTS.md bootstrap, and populate HCA_PROJECT_MAP.md from confirmed repository files. Use when Codex needs to set up Harness in a new or existing project, add a `.harness` directory, standardize task recovery records, or install Project Map and paged Error Ledger conventions.
+description: Initialize or adopt a project Harness limited to a derived Project Map and a paged Error Ledger, safely integrate a root AGENTS.md bootstrap, and populate navigation from confirmed repository files. Use when Codex needs to add .harness to a new or existing project or install Project Map and reusable failure-prevention conventions.
 ---
 
 # Harness Init
 
-Create a recoverable project Harness without overwriting existing project rules or inventing project facts.
+Create project navigation and reusable failure prevention without overwriting existing project rules or inventing project facts. Harness maintains only the Project Map and Error Ledger; execution and Review policy belongs to the project's root `AGENTS.md`.
+
+## Execution And Review
+
+- Default to the main Agent performing investigation, implementation, and verification directly. Use an independent Reviewer only when explicitly requested or concrete risk makes independent Review necessary; other Subagents require an explicit user request for delegation.
+- Reviewers remain read-only by default. For a suspected P0 finding, they may add, modify, and run narrowly scoped tests and isolated fixtures to reproduce or verify it. Follow single-writer ownership and the project's owning verification workflow; return production fixes to the main Agent.
 
 ## Workflow
 
@@ -27,15 +32,14 @@ Create a recoverable project Harness without overwriting existing project rules 
    ```
 
 8. Populate `.harness/HCA_PROJECT_MAP.md` from the confirmed project facts gathered in step 2. Keep unknown values as `Unknown`; do not claim planned modules exist.
-9. Do not create task templates by default. Create one `.harness/TASK_STATUS.md` only when interruption, handoff, or cross-session recovery requires it; include only goal, scope, key decisions, verified progress, blockers, and next step. Overwrite it as work proceeds and delete it on completion.
-10. Verify the installed structure, root bootstrap, Project Map evidence boundaries, relative links, zero-record Error Ledger, Git scope, and diff hygiene before reporting completion.
+9. Verify the installed structure, root bootstrap, Project Map evidence boundaries, relative links, Error Ledger invariants, Git scope, and diff hygiene before reporting completion.
 
 ## Project Map Rules
 
 - Treat the Project Map as a derived, non-normative locator, never as product authority.
 - Record repository boundaries; authority and lifecycle; real module responsibility boundaries; direct dependency direction; entry points; deeper documentation; and verification owners.
 - Confirm living claims against owning files. Mark missing facts as `Unknown` instead of guessing.
-- Keep task status, completion history, incidents, commands, versions, hashes, and test evidence out of the Project Map.
+- Keep transient execution state, completion history, incidents, commands, versions, hashes, and test evidence out of the Project Map.
 - Update the map in the same change when documents move or module/ownership topology changes.
 
 ## Safety And Idempotency
@@ -44,7 +48,7 @@ Create a recoverable project Harness without overwriting existing project rules 
 - Never redirect initialization to a convenience path. The requested project root is part of the mutation boundary.
 - Never pass a force or overwrite option; none is supported.
 - Preserve an existing root `AGENTS.md`. The initializer may only create or append the bounded block from `assets/root-agents-bootstrap.md`.
-- Treat a valid managed `.harness` plus an exact bootstrap block as already initialized. Re-running must not reset a populated Project Map or task records.
+- Treat a valid managed `.harness` plus an exact bootstrap block as already initialized. Re-running must not reset a populated Project Map or Error Ledger.
 - Treat `.harness` without the managed marker, missing required files, symlinks, partial markers, or edited bootstrap content as conflicts.
 - Keep temporary tests outside live project roots and remove only the exact temporary directory created for the test.
 
@@ -53,12 +57,12 @@ Create a recoverable project Harness without overwriting existing project rules 
 - Require the initializer's apply result and a second no-op preflight to succeed.
 - Confirm the managed structure and `.harness/.harness-init` schema version 1 marker.
 - Confirm the root bootstrap points to `.harness/AGENTS.md` and existing root instructions remain byte-for-byte unchanged outside the bounded block.
-- Confirm `CATALOG.md` reports zero retained records and the first shard contains no canonical `### ERR-NNNN` entry.
-- Validate Markdown links from their actual document directories and run the repository's diff-hygiene check.
+- For a newly created Harness, confirm `CATALOG.md` reports zero retained records and the first shard contains no canonical `### ERR-NNNN` entry. For an existing Harness, confirm its Project Map and retained Error Ledger content are preserved.
+- Validate Markdown links from their installed document directories and run the repository's diff-hygiene check.
 - Report failures and remaining conflicts plainly; an incomplete integration is not a successful initialization.
 
 ## Resources
 
 - `scripts/init_harness.py`: fail-closed, idempotent `.harness` initializer and root AGENTS bootstrap integrator.
-- `assets/harness-template/`: files copied into the target project's `.harness` directory.
+- `assets/harness-template/`: Project Map and Error Ledger files copied into the target project's `.harness` directory.
 - `assets/root-agents-bootstrap.md`: exact bounded block created or appended at the project root.
